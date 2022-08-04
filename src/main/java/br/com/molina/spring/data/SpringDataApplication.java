@@ -7,10 +7,11 @@ import br.com.molina.spring.data.service.RelatoriosService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.Scanner;
 
-
+@EnableJpaRepositories
 @SpringBootApplication
 public class SpringDataApplication implements CommandLineRunner {
 
@@ -45,7 +46,7 @@ public class SpringDataApplication implements CommandLineRunner {
 		while (system) {
 			System.out.println("Qual função deseja executar?");
 			System.out.println("0 - Sair");
-			System.out.println("1 - Funcionario");
+			System.out.println("1 - Funcionário");
 			System.out.println("2 - Cargo");
 			System.out.println("3 - Unidade");
 			System.out.println("4 - Relatórios da Aplicação");

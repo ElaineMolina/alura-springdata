@@ -1,6 +1,7 @@
 package br.com.molina.spring.data.service;
 
 import br.com.molina.spring.data.model.Funcionario;
+import br.com.molina.spring.data.model.FuncionarioProjecao;
 import br.com.molina.spring.data.repository.FuncionarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class RelatoriosService {
             System.out.println("1 - Buscar funcionário pelo nome");
             System.out.println("2 - Buscar funcionário pelo nome, data contratação e salário maior");
             System.out.println("3 - Buscar funcionário pela data de contratação");
+            System.out.println("4 - Pesquisa salário de funcionário");
 
 
             int action = scanner.nextInt();
@@ -42,6 +44,9 @@ public class RelatoriosService {
                     break;
                 case 3:
                     buscaFuncionarioDataContratacao(scanner);
+                    break;
+                case 4:
+                    pesquisaFuncionarioSalario();
                     break;
 
 
@@ -82,6 +87,11 @@ public class RelatoriosService {
 
         List<Funcionario> list = funcionarioRepository.findDataContratacaoMaior(localDate);
         list.forEach(System.out::println);
+    }
 
+    private void pesquisaFuncionarioSalario(){
+        List<FuncionarioProjecao> list = funcionarioRepository.findFuncionarioSalario() ;
+        list.forEach(f -> System.out.println("Funcionário: id: " + f.getId()
+        + " | nome: " + f.getNome() + " | salário: " + f.getSalario()));
     }
 }
