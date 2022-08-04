@@ -1,9 +1,6 @@
 package br.com.molina.spring.data;
 
-import br.com.molina.spring.data.service.CrudCargoService;
-import br.com.molina.spring.data.service.CrudFuncionarioService;
-import br.com.molina.spring.data.service.CrudUnidadeTrabalhoService;
-import br.com.molina.spring.data.service.RelatoriosService;
+import br.com.molina.spring.data.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,17 +22,21 @@ public class SpringDataApplication implements CommandLineRunner {
 
 	private final RelatoriosService relatoriosService;
 
+	private final RelatorioFuncionarioDinamico relatorioFuncionarioDinamico;
+
 	public SpringDataApplication(CrudCargoService cargoService,
 								 CrudFuncionarioService funcionarioService,
 								 CrudUnidadeTrabalhoService unidadeTrabalhoService,
-								 RelatoriosService relatoriosService) {
+								 RelatoriosService relatoriosService,
+								 RelatorioFuncionarioDinamico relatorioFuncionarioDinamico) {
 		this.cargoService = cargoService;
 		this.funcionarioService = funcionarioService;
 		this.unidadeTrabalhoService = unidadeTrabalhoService;
 		this.relatoriosService = relatoriosService;
+		this.relatorioFuncionarioDinamico = relatorioFuncionarioDinamico;
 	}
 
-	public static void main(String[] args) {
+		public static void main(String[] args) {
 		SpringApplication.run(SpringDataApplication.class, args);
 	}
 
@@ -50,6 +51,7 @@ public class SpringDataApplication implements CommandLineRunner {
 			System.out.println("2 - Cargo");
 			System.out.println("3 - Unidade");
 			System.out.println("4 - Relatórios da Aplicação");
+			System.out.println("5 - Relatórios Funcionário Dinâmico");
 
 			Integer function = scanner.nextInt();
 
@@ -65,6 +67,9 @@ public class SpringDataApplication implements CommandLineRunner {
 					break;
 				case 4:
 					relatoriosService.inicial(scanner);
+					break;
+				case 5:
+					relatorioFuncionarioDinamico.inicial(scanner);
 					break;
 				default:
 					System.out.println("Finalizando");
