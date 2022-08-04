@@ -2,21 +2,25 @@ package br.com.molina.spring.data.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "cargos")
 public class Cargo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
     private String descricao;
 
+    @OneToMany(mappedBy = "cargo")
+    private List<Funcionario> funcionario;
+
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -26,4 +30,10 @@ public class Cargo {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    @Override
+    public String toString() {
+        return "Cargo [id=" + id + ", descricao=" + descricao + "]";
+    }
+
 }

@@ -1,30 +1,75 @@
 package br.com.molina.spring.data;
 
-import br.com.molina.spring.data.model.Cargo;
-import br.com.molina.spring.data.repository.CargoRepository;
+import br.com.molina.spring.data.service.CrudCargoService;
+import br.com.molina.spring.data.service.CrudFuncionarioService;
+import br.com.molina.spring.data.service.CrudUnidadeTrabalhoService;
+import br.com.molina.spring.data.service.RelatoriosService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Scanner;
+
+
 @SpringBootApplication
 public class SpringDataApplication implements CommandLineRunner {
 
-	private final CargoRepository repository;
+	private Boolean system = true;
 
-	public SpringDataApplication(CargoRepository repository){
-		this.repository = repository;
+	private final CrudCargoService cargoService;
+
+	private final CrudFuncionarioService funcionarioService;
+
+	private final CrudUnidadeTrabalhoService unidadeTrabalhoService;
+
+	private final RelatoriosService relatoriosService;
+
+	public SpringDataApplication(CrudCargoService cargoService,
+								 CrudFuncionarioService funcionarioService,
+								 CrudUnidadeTrabalhoService unidadeTrabalhoService,
+								 RelatoriosService relatoriosService) {
+		this.cargoService = cargoService;
+		this.funcionarioService = funcionarioService;
+		this.unidadeTrabalhoService = unidadeTrabalhoService;
+		this.relatoriosService = relatoriosService;
 	}
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(SpringDataApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		Cargo cargo = new Cargo();
-		cargo.setDescricao("DESENVOLVEDOR DE SOFTWARE");
+		Scanner scanner = new Scanner(System.in);
 
-		repository.save(cargo);
+		while (system) {
+			System.out.println("Qual função deseja executar?");
+			System.out.println("0 - Sair");
+			System.out.println("1 - Funcionario");
+			System.out.println("2 - Cargo");
+			System.out.println("3 - Unidade");
+			System.out.println("4 - Relatórios da Aplicação");
+
+			Integer function = scanner.nextInt();
+
+			switch (function) {
+				case 1:
+					funcionarioService.inicial(scanner);
+					break;
+				case 2:
+					cargoService.inicial(scanner);
+					break;
+				case 3:
+					unidadeTrabalhoService.inicial(scanner);
+					break;
+				case 4:
+					relatoriosService.inicial(scanner);
+					break;
+				default:
+					System.out.println("Finalizando");
+					system = false;
+					break;
+			}
+		}
 	}
 }
